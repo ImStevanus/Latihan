@@ -80,4 +80,4 @@ if st.button('🖩 Hitung Hasil'):
     if error_pembagian:
         st.error("Error: Tidak bisa melakukan pembagian dengan angka nol (0)!")
     else:
-        st.success(f"**{string_process}**")
+        st.success(f"Hasil: {string_proses} = **{hasil}**")
