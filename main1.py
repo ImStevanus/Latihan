@@ -18,6 +18,12 @@ st.write('Mode: ', mode)
 
 num1 = st.number_input('Masukkan Angka 1', value=0)
 num2 = st.number_input('Masukkan Angka 2', value=0)
+tambah_angka = st.checkbox('Tambah angka ke-3 (Opsional)')
+
+if tambah_angka:
+    num3 = st.number_input('Masukkan Angka 3', value=0.0)
+else:
+    num3 = None
 
 if st.button('Hitung Hasil'):
     if mode == 'Penjumlahan':
