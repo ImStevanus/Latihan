@@ -16,8 +16,8 @@ st.markdown("---")
 mode = st.selectbox('Pilih mode :', ['Penjumlahan', 'Pengurangan', 'Perkalian', 'Pembagian'])
 st.write('Mode: ', mode)
 
-c1 = st.number_input('Masukkan Angka 1', value=0.0)
-c2 = st.number_input('Masukkan Angka 2', value=0.0)
+c1 = st.number_input('Masukkan Angka 1', value=0)
+c2 = st.number_input('Masukkan Angka 2', value=0)
 
 if st.button('Hitung Hasil'):
     if operasi == 'Penjumlahan (+)':
