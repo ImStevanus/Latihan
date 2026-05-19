@@ -7,7 +7,7 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("🧮 Kalkulator Bjir")
+st.title("🧮 Kalkulator")
 st.write("Kamu bisa menambah atau menghapus input angka!")
 st.markdown("---")
 
@@ -80,4 +80,4 @@ if st.button('🖩 Hitung Hasil'):
     if error_pembagian:
         st.error("Error: Tidak bisa melakukan pembagian dengan angka nol (0)!")
     else:
-        st.success(f"Hello World!")
+        st.success(f"**{hasil}**")
