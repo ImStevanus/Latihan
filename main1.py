@@ -13,7 +13,7 @@ st.write("Aplikasi kalkulator mini untuk operasi matematika dasar.")
 st.markdown("---")
 
 # 3. Input Angka (Dibuat berdampingan menggunakan kolom)
-subject = st.selectbox('Select a subject:', ['Penjumlahan', 'Pengurangan', 'Perkalian', 'Pembagian'])
-st.write('Your subject is: ', subject)
+mode = st.selectbox('Select a subject:', ['Penjumlahan', 'Pengurangan', 'Perkalian', 'Pembagian'])
+st.write('Mode: ', mode)
 
 c1 = st.text_input('Masukkan Angka')
