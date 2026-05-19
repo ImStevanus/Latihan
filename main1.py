@@ -1,46 +1,83 @@
 import streamlit as st
 
-# 1. Konfigurasi Halaman (Opsional, agar tampilan di browser lebih bagus)
+# 1. Konfigurasi Halaman
 st.set_page_config(
-    page_title="Kalkulator Sederhana",
+    page_title="Kalkulator Unlimited",
     page_icon="🧮",
     layout="centered"
 )
 
-# 2. Judul Aplikasi
-st.title("🧮 Kalkulator Sederhana")
-st.write("Aplikasi kalkulator mini untuk operasi matematika dasar.")
+st.title("🧮 Kalkulator Dinamis (Unlimited)")
+st.write("Kamu bisa menambah atau menghapus input angka sesukamu!")
 st.markdown("---")
 
-# 3. Input Angka (Dibuat berdampingan menggunakan kolom)
-mode = st.selectbox('Pilih mode :', ['Penjumlahan', 'Pengurangan', 'Perkalian', 'Pembagian'])
-st.write('Mode: ', mode)
+# 2. Inisialisasi Session State (Memori Aplikasi)
+# Kita mulai dengan minimal 2 input angka default
+if 'jumlah_angka' not in st.session_state:
+    st.session_state.jumlah_angka = 2
 
-num1 = st.number_input('Masukkan Angka 1', value=0)
-num2 = st.number_input('Masukkan Angka 2', value=0)
-tambah_angka = st.checkbox('Tambah angka ke-3 (Opsional)')
+# 3. Pilihan Operasi Matematika
+mode = st.selectbox('Pilih mode operasi:', ['Penjumlahan (+)', 'Pengurangan (-)', 'Perkalian (x)', 'Pembagian (/)'])
+st.write('Mode saat ini: ', mode)
 
-if tambah_angka:
-    num3 = st.number_input('Masukkan Angka 3', value=0.0)
-else:
-    num3 = None
+st.markdown("### 🔢 Masukkan Angka")
 
-if st.button('Hitung Hasil'):
-    if mode == 'Penjumlahan':
-        hasil = num1 + num2
-        st.success(f'Hasil dari {num1} + {num2} = **{hasil}**')
+# 4. Loop untuk Membuat Input Angka Secara Dinamis
+daftar_angka = []
+for i in range(st.session_state.jumlah_angka):
+    # Membuat input field dinamis: Angka 1, Angka 2, Angka 3, dst.
+    angka = st.number_input(f'Masukkan Angka {i+1}', value=0.0, key=f'angka_{i}')
+    daftar_angka.append(angka)
+
+# 5. Tombol untuk Menambah / Mengurangi Jumlah Input (Loop Controller)
+kolom1, kolom2 = st.columns(2)
+
+with kolom1:
+    if st.button("➕ Tambah Angka"):
+        st.session_state.jumlah_angka += 1
+        st.rerun()  # Memaksa streamlit menggambar ulang layar dengan input baru
+
+with kolom2:
+    # Batasi agar input tidak bisa kurang dari 2 angka
+    if st.session_state.jumlah_angka > 2:
+        if st.button("❌ Kurangi Angka"):
+            st.session_state.jumlah_angka -= 1
+            st.rerun()
+
+st.markdown("---")
+
+# 6. Logika Perhitungan Berdasarkan Daftar Angka
+if st.button('🖩 Hitung Hasil'):
+    # Ambil angka pertama sebagai dasar perhitungan
+    hasil = daftar_angka[0]
+    string_proses = f"{daftar_angka[0]}"
+    
+    error_pembagian = False
+
+    # Lakukan loop untuk menghitung angka ke-2 hingga angka terakhir
+    for angka_berikutnya in daftar_angka[1:]:
         
-    elif mode == 'Pengurangan':
-        hasil = num1 - num2
-        st.success(f'Hasil dari {num1} - {num2} = **{hasil}**')
-        
-    elif mode == 'Perkalian':
-        hasil = num1 * num2
-        st.success(f'Hasil dari {num1} x {num2} = **{hasil}**')
-        
-    elif mode == 'Pembagian':
-        if num2 == 0:
-            st.error('Error: Tidak bisa membagi angka dengan nol (0)!')
-        else:
-            hasil = num1 / num2
-            st.success(f'Hasil dari {num1} / {num2} = **{hasil}**')
+        if mode == 'Penjumlahan (+)':
+            hasil += angka_berikutnya
+            string_proses += f" + {angka_berikutnya}"
+            
+        elif mode == 'Pengurangan (-)':
+            hasil -= angka_berikutnya
+            string_proses += f" - {angka_berikutnya}"
+            
+        elif mode == 'Perkalian (x)':
+            hasil *= angka_berikutnya
+            string_proses += f" x {angka_berikutnya}"
+            
+        elif mode == 'Pembagian (/)':
+            if angka_berikutnya == 0:
+                error_pembagian = True
+                break
+            hasil /= angka_berikutnya
+            string_proses += f" / {angka_berikutnya}"
+
+    # Tampilkan Hasil
+    if error_pembagian:
+        st.error("Error: Tidak bisa melakukan pembagian dengan angka nol (0)!")
+    else:
+        st.success(f"Hasil: {string_proses} = **{hasil}**")
