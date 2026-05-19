@@ -2,13 +2,13 @@ import streamlit as st
 
 # 1. Konfigurasi Halaman
 st.set_page_config(
-    page_title="Kalkulator Unlimited",
+    page_title="Kalkulator",
     page_icon="🧮",
     layout="centered"
 )
 
-st.title("🧮 Kalkulator Dinamis (Unlimited)")
-st.write("Kamu bisa menambah atau menghapus input angka sesukamu!")
+st.title("🧮 Kalkulator Bjir")
+st.write("Kamu bisa menambah atau menghapus input angka!")
 st.markdown("---")
 
 # 2. Inisialisasi Session State (Memori Aplikasi)
@@ -17,7 +17,7 @@ if 'jumlah_angka' not in st.session_state:
     st.session_state.jumlah_angka = 2
 
 # 3. Pilihan Operasi Matematika
-mode = st.selectbox('Pilih mode operasi:', ['Penjumlahan (+)', 'Pengurangan (-)', 'Perkalian (x)', 'Pembagian (/)'])
+mode = st.selectbox('Pilih mode operasi:', ['(+) Penjumlahan', '(-) Pengurangan', '(x) Perkalian', '(/) Pembagian'])
 st.write('Mode saat ini: ', mode)
 
 st.markdown("### 🔢 Masukkan Angka")
@@ -80,4 +80,4 @@ if st.button('🖩 Hitung Hasil'):
     if error_pembagian:
         st.error("Error: Tidak bisa melakukan pembagian dengan angka nol (0)!")
     else:
-        st.success(f"Hasil: {string_proses} = **{hasil}**")
+        st.success(f"Hasil: Hello World!")
