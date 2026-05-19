@@ -16,4 +16,5 @@ st.markdown("---")
 mode = st.selectbox('Pilih mode :', ['Penjumlahan', 'Pengurangan', 'Perkalian', 'Pembagian'])
 st.write('Mode: ', mode)
 
-c1 = st.text_input('Masukkan Angka')
+c1 = st.text_input('Masukkan Angka 1')
+c2 = st.text_input('Masukkan Angka 2')
