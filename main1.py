@@ -20,19 +20,19 @@ num1 = st.number_input('Masukkan Angka 1', value=0)
 num2 = st.number_input('Masukkan Angka 2', value=0)
 
 if st.button('Hitung Hasil'):
-    if mode == 'Penjumlahan (+)':
+    if mode == 'Penjumlahan':
         hasil = num1 + num2
         st.success(f'Hasil dari {num1} + {num2} = **{hasil}**')
         
-    elif mode == 'Pengurangan (-)':
+    elif mode == 'Pengurangan':
         hasil = num1 - num2
         st.success(f'Hasil dari {num1} - {num2} = **{hasil}**')
         
-    elif mode == 'Perkalian (x)':
+    elif mode == 'Perkalian':
         hasil = num1 * num2
         st.success(f'Hasil dari {num1} x {num2} = **{hasil}**')
         
-    elif mode == 'Pembagian (/)':
+    elif mode == 'Pembagian':
         if num2 == 0:
             st.error('Error: Tidak bisa membagi angka dengan nol (0)!')
         else:
