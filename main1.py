@@ -13,4 +13,4 @@ st.write("Aplikasi kalkulator mini untuk operasi matematika dasar.")
 st.markdown("---")
 
 # 3. Input Angka (Dibuat berdampingan menggunakan kolom)
-c1 = st.text_input('Masukkan Angka','Type here')
+c1 = st.text_input('Masukkan Angka')
