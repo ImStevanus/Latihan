@@ -57,19 +57,19 @@ if st.button('🖩 Hitung Hasil'):
     # Lakukan loop untuk menghitung angka ke-2 hingga angka terakhir
     for angka_berikutnya in daftar_angka[1:]:
         
-        if mode == 'Penjumlahan (+)':
+        if mode == '(+) Penjumlahan':
             hasil += angka_berikutnya
             string_proses += f" + {angka_berikutnya}"
             
-        elif mode == 'Pengurangan (-)':
+        elif mode == '(-) Pengurangan':
             hasil -= angka_berikutnya
             string_proses += f" - {angka_berikutnya}"
             
-        elif mode == 'Perkalian (x)':
+        elif mode == '(x) Perkalian':
             hasil *= angka_berikutnya
             string_proses += f" x {angka_berikutnya}"
             
-        elif mode == 'Pembagian (/)':
+        elif mode == '(/) Pembagian':
             if angka_berikutnya == 0:
                 error_pembagian = True
                 break
