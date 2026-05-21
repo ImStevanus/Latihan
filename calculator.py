@@ -13,7 +13,7 @@ st.markdown("""
         padding-top: 0px;
     }
     
-    /* Menghilangkan gap bawaan kolom Streamlit agar tombol rapat berjarak konisten */
+    /* Menghilangkan gap bawaan kolom Streamlit agar tombol rapat berjarak konsisten */
     [data-testid="stHorizontalBlock"] {
         gap: 4px !important;
         margin-bottom: 4px !important;
@@ -136,73 +136,79 @@ def backspace():
 # --- TAMPILAN UTAMA ---
 st.title("🔢 Standard Calculator")
 
-# Kotak Layar Tampilan Angka
-st.markdown(f'<div class="display-box">{st.session_state.display}</div>', unsafe_allow_html=True)
+# Menggunakan st.fragment untuk mengisolasi kalkulator agar jalannya sangat cepat
+@st.fragment
+def jalankan_kalkulator():
+    # Kotak Layar Tampilan Angka
+    st.markdown(f'<div class="display-box">{st.session_state.display}</div>', unsafe_allow_html=True)
 
-# Membuat Grid Tombol rapat sesuai layout gambar pendukung
-# Baris 1
-row1 = st.columns(4)
-if row1[0].button("%"): 
-    try:
-        st.session_state.display = str(float(st.session_state.display) / 100)
-    except:
-        st.session_state.display = "Error"
-if row1[1].button("CE"): clear_entry()
-if row1[2].button("C"): clear_all()
-if row1[3].button("⌫"): backspace()
+    # Membuat Grid Tombol rapat sesuai layout gambar pendukung
+    # Baris 1
+    row1 = st.columns(4)
+    if row1[0].button("%"): 
+        try:
+            st.session_state.display = str(float(st.session_state.display) / 100)
+        except:
+            st.session_state.display = "Error"
+    if row1[1].button("CE"): clear_entry()
+    if row1[2].button("C"): clear_all()
+    if row1[3].button("⌫"): backspace()
 
-# Baris 2
-row2 = st.columns(4)
-if row2[0].button("¹/x"): 
-    try:
-        val = float(st.session_state.display)
-        st.session_state.display = str(1/val) if val != 0 else "Error"
-    except:
-        st.session_state.display = "Error"
-if row2[1].button("x²"): 
-    try:
-        st.session_state.display = str(float(st.session_state.display) ** 2)
-    except:
-        st.session_state.display = "Error"
-if row2[2].button("²√x"): 
-    try:
-        val = float(st.session_state.display)
-        st.session_state.display = str(math.sqrt(val)) if val >= 0 else "Error"
-    except:
-        st.session_state.display = "Error"
-if row2[3].button("÷"): press_operator("÷")
+    # Baris 2
+    row2 = st.columns(4)
+    if row2[0].button("¹/x"): 
+        try:
+            val = float(st.session_state.display)
+            st.session_state.display = str(1/val) if val != 0 else "Error"
+        except:
+            st.session_state.display = "Error"
+    if row2[1].button("x²"): 
+        try:
+            st.session_state.display = str(float(st.session_state.display) ** 2)
+        except:
+            st.session_state.display = "Error"
+    if row2[2].button("²√x"): 
+        try:
+            val = float(st.session_state.display)
+            st.session_state.display = str(math.sqrt(val)) if val >= 0 else "Error"
+        except:
+            st.session_state.display = "Error"
+    if row2[3].button("÷"): press_operator("÷")
 
-# Baris 3
-row3 = st.columns(4)
-if row3[0].button("7"): press_number(7)
-if row3[1].button("8"): press_number(8)
-if row3[2].button("9"): press_number(9)
-if row3[3].button("×"): press_operator("×")
+    # Baris 3
+    row3 = st.columns(4)
+    if row3[0].button("7"): press_number(7)
+    if row3[1].button("8"): press_number(8)
+    if row3[2].button("9"): press_number(9)
+    if row3[3].button("×"): press_operator("×")
 
-# Baris 4
-row4 = st.columns(4)
-if row4[0].button("4"): press_number(4)
-if row4[1].button("5"): press_number(5)
-if row4[2].button("6"): press_number(6)
-if row4[3].button("-"): press_operator("-")
+    # Baris 4
+    row4 = st.columns(4)
+    if row4[0].button("4"): press_number(4)
+    if row4[1].button("5"): press_number(5)
+    if row4[2].button("6"): press_number(6)
+    if row4[3].button("-"): press_operator("-")
 
-# Baris 5
-row5 = st.columns(4)
-if row5[0].button("1"): press_number(1)
-if row5[1].button("2"): press_number(2)
-if row5[2].button("3"): press_number(3)
-if row5[3].button("+"): press_operator("+")
+    # Baris 5
+    row5 = st.columns(4)
+    if row5[0].button("1"): press_number(1)
+    if row5[1].button("2"): press_number(2)
+    if row5[2].button("3"): press_number(3)
+    if row5[3].button("+"): press_operator("+")
 
-# Baris 6
-row6 = st.columns(4)
-if row6[0].button("+/-"): 
-    try:
-        if st.session_state.display != "0":
-            st.session_state.display = str(-float(st.session_state.display))
-    except:
-        st.session_state.display = "Error"
-if row6[1].button("0"): press_number(0)
-if row6[2].button("."): 
-    if "." not in st.session_state.display:
-        st.session_state.display += "."
-if row6[3].button("=", type="primary"): calculate()
+    # Baris 6
+    row6 = st.columns(4)
+    if row6[0].button("+/-"): 
+        try:
+            if st.session_state.display != "0":
+                st.session_state.display = str(-float(st.session_state.display))
+        except:
+            st.session_state.display = "Error"
+    if row6[1].button("0"): press_number(0)
+    if row6[2].button("."): 
+        if "." not in st.session_state.display:
+            st.session_state.display += "."
+    if row6[3].button("=", type="primary"): calculate()
+
+# Memanggil fungsi kalkulator yang sudah dioptimasi
+jalankan_kalkulator()
