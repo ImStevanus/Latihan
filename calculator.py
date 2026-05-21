@@ -4,27 +4,64 @@ import math
 # Set layout halaman agar lebih rapi dan pas di tengah
 st.set_page_config(page_title="Kalkulator Grid", page_icon="🔢", layout="centered")
 
-# Menggunakan CSS kustom agar tampilan tombol lebih padat dan mirip kalkulator fisik
+# Menggunakan CSS kustom tingkat lanjut agar tampilan grid tombol rapi dan konsisten
 st.markdown("""
     <style>
-    div.stButton > button {
-        width: 100%;
-        height: 60px;
-        font-size: 20px !important;
-        font-weight: 500;
-        margin-bottom: -10px;
+    /* Mengatur jarak antar elemen di Streamlit */
+    [data-testid="stVerticalBlock"] > div {
+        padding-bottom: 0px;
+        padding-top: 0px;
     }
+    
+    /* Menghilangkan gap bawaan kolom Streamlit agar tombol rapat berjarak konisten */
+    [data-testid="stHorizontalBlock"] {
+        gap: 4px !important;
+        margin-bottom: 4px !important;
+    }
+    
+    /* Kustomisasi tombol dasar */
+    div.stButton > button {
+        width: 100% !important;
+        height: 55px !important;
+        font-size: 18px !important;
+        font-weight: 500 !important;
+        background-color: #f9f9f9 !important;
+        color: #1a1a1a !important;
+        border: 1px solid #e0e0e0 !important;
+        border-radius: 4px !important;
+        transition: all 0.1s ease;
+    }
+    
+    /* Efek hover ketika mouse mendekati tombol */
+    div.stButton > button:hover {
+        background-color: #eaeaea !important;
+        border-color: #cccccc !important;
+    }
+    
+    /* Tombol "=" (Sengaja dibuat kontras berwarna biru) */
+    div.stButton > button[kind="primary"] {
+        background-color: #0067b8 !important;
+        color: white !important;
+        border: none !important;
+    }
+    div.stButton > button[kind="primary"]:hover {
+        background-color: #005da6 !important;
+    }
+    
+    /* Kustomisasi kotak layar display angka */
     .display-box {
-        background-color: #f0f4f9;
-        padding: 20px;
-        border-radius: 5px;
+        background-color: #f3f3f3;
+        padding: 15px 20px;
+        border-radius: 4px;
         text-align: right;
-        font-size: 40px;
-        font-weight: bold;
-        font-family: monospace;
-        margin-bottom: 20px;
-        border: 1px solid #dcdcdc;
-        color: #000000;
+        font-size: 42px;
+        font-weight: 600;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-bottom: 12px;
+        border: 1px solid #e0e0e0;
+        color: #1b1b1b;
+        min-height: 80px;
+        line-height: 50px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -102,7 +139,7 @@ st.title("🔢 Standard Calculator")
 # Kotak Layar Tampilan Angka
 st.markdown(f'<div class="display-box">{st.session_state.display}</div>', unsafe_allow_html=True)
 
-# Membuat Grid Tombol (Sesuai Layout Gambar)
+# Membuat Grid Tombol rapat sesuai layout gambar pendukung
 # Baris 1
 row1 = st.columns(4)
 if row1[0].button("%"): 
