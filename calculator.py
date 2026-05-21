@@ -51,9 +51,12 @@ def press_number(num):
             st.session_state.display += str(num)
 
 def press_operator(op):
-    st.session_state.stored_value = float(st.session_state.display)
-    st.session_state.operator = op
-    st.session_state.reset_on_next_click = True
+    try:
+        st.session_state.stored_value = float(st.session_state.display)
+        st.session_state.operator = op
+        st.session_state.reset_on_next_click = True
+    except:
+        st.session_state.display = "Error"
 
 def calculate():
     if st.session_state.operator:
@@ -130,4 +133,39 @@ if row2[2].button("²√x"):
         st.session_state.display = str(math.sqrt(val)) if val >= 0 else "Error"
     except:
         st.session_state.display = "Error"
-if row2[3].button("
+if row2[3].button("÷"): press_operator("÷")
+
+# Baris 3
+row3 = st.columns(4)
+if row3[0].button("7"): press_number(7)
+if row3[1].button("8"): press_number(8)
+if row3[2].button("9"): press_number(9)
+if row3[3].button("×"): press_operator("×")
+
+# Baris 4
+row4 = st.columns(4)
+if row4[0].button("4"): press_number(4)
+if row4[1].button("5"): press_number(5)
+if row4[2].button("6"): press_number(6)
+if row4[3].button("-"): press_operator("-")
+
+# Baris 5
+row5 = st.columns(4)
+if row5[0].button("1"): press_number(1)
+if row5[1].button("2"): press_number(2)
+if row5[2].button("3"): press_number(3)
+if row5[3].button("+"): press_operator("+")
+
+# Baris 6
+row6 = st.columns(4)
+if row6[0].button("+/-"): 
+    try:
+        if st.session_state.display != "0":
+            st.session_state.display = str(-float(st.session_state.display))
+    except:
+        st.session_state.display = "Error"
+if row6[1].button("0"): press_number(0)
+if row6[2].button("."): 
+    if "." not in st.session_state.display:
+        st.session_state.display += "."
+if row6[3].button("=", type="primary"): calculate()
